@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["unit-tests"]
+    types: [completed]
+    #branches: [main]
+
+permissions:
+  contents: write # allow pushing to gh-pages
+
+jobs:
+  deploy:
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact from CI-CD run
+        uses: actions/download-artifact@v4
+        with:
+          #name: assets
+          path: dist
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          name: assets
+          publish_dir: dist
+

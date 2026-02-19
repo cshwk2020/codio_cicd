@@ -1,0 +1,25 @@
+{
+  "name": "ci-cd-sample-app",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "lint": "npx eslint examples/*.js",
+    "style": "prettier --check examples/example2.js",
+    "format": "prettier --write examples/example2.js",
+    "test": "jest",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-react": "^7.28.5",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "husky": "^8.0.0",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "jest": "^29.5.0"
+  }
+}

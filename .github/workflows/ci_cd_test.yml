@@ -1,0 +1,21 @@
+name: unit-tests
+
+on:
+  workflow_run:
+    workflows: ["CI-CD"]
+    types: [completed]
+
+jobs:
+  test:
+    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npx yarn
+      - uses: actions/download-artifact@v4
+        with:
+          #name: assets
+          path: dist
+          run-id: ${{ github.event.workflow_run.id }}
+      - run: npx yarn test
+

@@ -1,0 +1,22 @@
+name: CI-CD
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Yarn
+      run: npm install -g yarn
+    - name: Install dependencies
+      run: npx yarn
+    - name: Build
+      run: npx yarn build
+
+      # bunch of generated files (HTML, JS bundles, CSS, etc.).
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with: 
+        name: assets
+        path: dist
